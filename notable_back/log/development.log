@@ -1,0 +1,615 @@
+  [1m[35m (573.8ms)[0m  [1m[35mCREATE DATABASE "notable_back_development" ENCODING = 'unicode'[0m
+  [1m[35m (498.0ms)[0m  [1m[35mCREATE DATABASE "notable_back_test" ENCODING = 'unicode'[0m
+  [1m[35m (23.6ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (20.5ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT pg_try_advisory_lock(4257864821367077445)[0m
+  [1m[35m (1.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreatePatients (20200613201353)
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (21.2ms)[0m  [1m[35mCREATE TABLE "patients" ("id" bigserial primary key, "name" character varying, "dob" date, "email" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mprimary::SchemaMigration Create (2.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20200613201353"]]
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.7ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2020-06-13 20:14:07.366604"], ["updated_at", "2020-06-13 20:14:07.366604"]]
+  [1m[35m (6.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT pg_advisory_unlock(4257864821367077445)[0m
+  [1m[35m (2.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(4257864821367077445)[0m
+  [1m[35m (1.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT pg_advisory_unlock(4257864821367077445)[0m
+  [1m[35m (1.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mPatient Load (1.1ms)[0m  [1m[34mSELECT "patients".* FROM "patients" LIMIT $1[0m  [["LIMIT", 11]]
+Started POST "/patients" for ::1 at 2020-06-13 13:28:31 -0700
+  [1m[35m (6.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by PatientsController#create as JSON
+  Parameters: {"patient"=>{"name"=>"Max", "dob"=>"06/22/1991", "email"=>"mzakzook@me.com"}}
+Completed 200 OK in 24ms (Views: 2.8ms | ActiveRecord: 13.2ms | Allocations: 4684)
+
+
+Started POST "/patients" for ::1 at 2020-06-13 13:28:45 -0700
+Error occurred while parsing request parameters.
+Contents:
+
+{"patient": 
+	{
+		"name": "Max", 
+		"dob": 06/22/1991,	
+		"email": "mzakzook@me.com"
+	}
+}
+  
+ActionDispatch::Http::Parameters::ParseError (767: unexpected token at '{"patient": 
+	{
+		"name": "Max", 
+		"dob": 06/22/1991,	
+		"email": "mzakzook@me.com"
+	}
+}'):
+  
+actionpack (6.0.3.1) lib/action_dispatch/http/parameters.rb:114:in `rescue in parse_formatted_parameters'
+actionpack (6.0.3.1) lib/action_dispatch/http/parameters.rb:110:in `parse_formatted_parameters'
+actionpack (6.0.3.1) lib/action_dispatch/http/request.rb:389:in `block in POST'
+rack (2.2.2) lib/rack/request.rb:69:in `fetch'
+rack (2.2.2) lib/rack/request.rb:69:in `fetch_header'
+actionpack (6.0.3.1) lib/action_dispatch/http/request.rb:388:in `POST'
+actionpack (6.0.3.1) lib/action_dispatch/http/parameters.rb:55:in `parameters'
+actionpack (6.0.3.1) lib/action_controller/metal/params_wrapper.rb:278:in `_wrapper_enabled?'
+actionpack (6.0.3.1) lib/action_controller/metal/params_wrapper.rb:244:in `process_action'
+activerecord (6.0.3.1) lib/active_record/railties/controller_runtime.rb:27:in `process_action'
+actionpack (6.0.3.1) lib/abstract_controller/base.rb:136:in `process'
+actionpack (6.0.3.1) lib/action_controller/metal.rb:190:in `dispatch'
+actionpack (6.0.3.1) lib/action_controller/metal.rb:254:in `dispatch'
+actionpack (6.0.3.1) lib/action_dispatch/routing/route_set.rb:50:in `dispatch'
+actionpack (6.0.3.1) lib/action_dispatch/routing/route_set.rb:33:in `serve'
+actionpack (6.0.3.1) lib/action_dispatch/journey/router.rb:49:in `block in serve'
+actionpack (6.0.3.1) lib/action_dispatch/journey/router.rb:32:in `each'
+actionpack (6.0.3.1) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (6.0.3.1) lib/action_dispatch/routing/route_set.rb:834:in `call'
+rack (2.2.2) lib/rack/etag.rb:27:in `call'
+rack (2.2.2) lib/rack/conditional_get.rb:40:in `call'
+rack (2.2.2) lib/rack/head.rb:12:in `call'
+activerecord (6.0.3.1) lib/active_record/migration.rb:567:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (6.0.3.1) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/actionable_exceptions.rb:17:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/debug_exceptions.rb:32:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.3.1) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.0.3.1) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.3.1) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.3.1) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.3.1) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.3.1) lib/rails/rack/logger.rb:26:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.2) lib/rack/runtime.rb:22:in `call'
+activesupport (6.0.3.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.2.2) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/host_authorization.rb:82:in `call'
+railties (6.0.3.1) lib/rails/engine.rb:527:in `call'
+puma (4.3.5) lib/puma/configuration.rb:228:in `call'
+puma (4.3.5) lib/puma/server.rb:713:in `handle_request'
+puma (4.3.5) lib/puma/server.rb:472:in `process_client'
+puma (4.3.5) lib/puma/server.rb:328:in `block in run'
+puma (4.3.5) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Error occurred while parsing request parameters.
+Contents:
+
+{"patient": 
+	{
+		"name": "Max", 
+		"dob": 06/22/1991,	
+		"email": "mzakzook@me.com"
+	}
+}
+  [1m[36mPatient Load (0.4ms)[0m  [1m[34mSELECT "patients".* FROM "patients" LIMIT $1[0m  [["LIMIT", 11]]
+Started POST "/patients" for ::1 at 2020-06-13 13:34:25 -0700
+Error occurred while parsing request parameters.
+Contents:
+
+{
+    "patient": {
+      "name": "Max",
+      "dob": 06/22/1991,
+      "email": "mzakzook@me.com"
+    }
+}
+
+
+  
+ActionDispatch::Http::Parameters::ParseError (767: unexpected token at '{
+    "patient": {
+      "name": "Max",
+      "dob": 06/22/1991,
+      "email": "mzakzook@me.com"
+    }
+}
+
+'):
+  
+actionpack (6.0.3.1) lib/action_dispatch/http/parameters.rb:114:in `rescue in parse_formatted_parameters'
+actionpack (6.0.3.1) lib/action_dispatch/http/parameters.rb:110:in `parse_formatted_parameters'
+actionpack (6.0.3.1) lib/action_dispatch/http/request.rb:389:in `block in POST'
+rack (2.2.2) lib/rack/request.rb:69:in `fetch'
+rack (2.2.2) lib/rack/request.rb:69:in `fetch_header'
+actionpack (6.0.3.1) lib/action_dispatch/http/request.rb:388:in `POST'
+actionpack (6.0.3.1) lib/action_dispatch/http/parameters.rb:55:in `parameters'
+actionpack (6.0.3.1) lib/action_controller/metal/params_wrapper.rb:278:in `_wrapper_enabled?'
+actionpack (6.0.3.1) lib/action_controller/metal/params_wrapper.rb:244:in `process_action'
+activerecord (6.0.3.1) lib/active_record/railties/controller_runtime.rb:27:in `process_action'
+actionpack (6.0.3.1) lib/abstract_controller/base.rb:136:in `process'
+actionpack (6.0.3.1) lib/action_controller/metal.rb:190:in `dispatch'
+actionpack (6.0.3.1) lib/action_controller/metal.rb:254:in `dispatch'
+actionpack (6.0.3.1) lib/action_dispatch/routing/route_set.rb:50:in `dispatch'
+actionpack (6.0.3.1) lib/action_dispatch/routing/route_set.rb:33:in `serve'
+actionpack (6.0.3.1) lib/action_dispatch/journey/router.rb:49:in `block in serve'
+actionpack (6.0.3.1) lib/action_dispatch/journey/router.rb:32:in `each'
+actionpack (6.0.3.1) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (6.0.3.1) lib/action_dispatch/routing/route_set.rb:834:in `call'
+rack (2.2.2) lib/rack/etag.rb:27:in `call'
+rack (2.2.2) lib/rack/conditional_get.rb:40:in `call'
+rack (2.2.2) lib/rack/head.rb:12:in `call'
+activerecord (6.0.3.1) lib/active_record/migration.rb:567:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (6.0.3.1) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/actionable_exceptions.rb:17:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/debug_exceptions.rb:32:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.3.1) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.0.3.1) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.3.1) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.3.1) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.3.1) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.3.1) lib/rails/rack/logger.rb:26:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.2) lib/rack/runtime.rb:22:in `call'
+activesupport (6.0.3.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.2.2) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/host_authorization.rb:82:in `call'
+railties (6.0.3.1) lib/rails/engine.rb:527:in `call'
+puma (4.3.5) lib/puma/configuration.rb:228:in `call'
+puma (4.3.5) lib/puma/server.rb:713:in `handle_request'
+puma (4.3.5) lib/puma/server.rb:472:in `process_client'
+puma (4.3.5) lib/puma/server.rb:328:in `block in run'
+puma (4.3.5) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Error occurred while parsing request parameters.
+Contents:
+
+{
+    "patient": {
+      "name": "Max",
+      "dob": 06/22/1991,
+      "email": "mzakzook@me.com"
+    }
+}
+
+
+Started POST "/patients" for ::1 at 2020-06-13 13:36:17 -0700
+Processing by PatientsController#create as JSON
+  Parameters: {"patient"=>{"name"=>"Max", "dob"=>"06/22/1991", "email"=>"mzakzook@me.com"}}
+Completed 200 OK in 1ms (Views: 0.5ms | ActiveRecord: 0.0ms | Allocations: 284)
+
+
+Started POST "/patients" for ::1 at 2020-06-13 13:37:49 -0700
+Processing by PatientsController#create as JSON
+  Parameters: {"patient"=>{"name"=>"Max", "dob"=>"1991-06-22", "email"=>"mzakzook@me.com"}}
+Completed 200 OK in 3ms (Views: 2.7ms | ActiveRecord: 0.0ms | Allocations: 287)
+
+
+  [1m[36mPatient Load (0.4ms)[0m  [1m[34mSELECT "patients".* FROM "patients" LIMIT $1[0m  [["LIMIT", 11]]
+  [1m[36mPatient Load (0.4ms)[0m  [1m[34mSELECT "patients".* FROM "patients" LIMIT $1[0m  [["LIMIT", 11]]
+  [1m[36mPatient Load (0.3ms)[0m  [1m[34mSELECT "patients".* FROM "patients" LIMIT $1[0m  [["LIMIT", 11]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mPatient Create (23.8ms)[0m  [1m[32mINSERT INTO "patients" ("name", "dob", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "Max"], ["dob", "1991-06-22"], ["email", "mzakzook@me.com"], ["created_at", "2020-06-13 20:42:53.138611"], ["updated_at", "2020-06-13 20:42:53.138611"]]
+  [1m[35m (1.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mPatient Load (0.5ms)[0m  [1m[34mSELECT "patients".* FROM "patients" LIMIT $1[0m  [["LIMIT", 11]]
+Started POST "/patients" for ::1 at 2020-06-13 13:45:38 -0700
+Processing by PatientsController#create as JSON
+  Parameters: {"patient"=>{"name"=>"Max", "dob"=>"1991-06-22", "email"=>"mzakzook@me.com"}}
+  [1m[35m (1.0ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/patients_controller.rb:4:in `create'
+  [1m[36mPatient Create (3.1ms)[0m  [1m[32mINSERT INTO "patients" ("name", "dob", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "Max"], ["dob", "1991-06-22"], ["email", "mzakzook@me.com"], ["created_at", "2020-06-13 20:45:39.187623"], ["updated_at", "2020-06-13 20:45:39.187623"]]
+  ↳ app/controllers/patients_controller.rb:4:in `create'
+  [1m[35m (17.4ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/patients_controller.rb:4:in `create'
+Completed 200 OK in 68ms (Views: 1.0ms | ActiveRecord: 21.6ms | Allocations: 6470)
+
+
+Started POST "/patients" for ::1 at 2020-06-13 13:45:51 -0700
+Processing by PatientsController#create as JSON
+  Parameters: {"patient"=>{"name"=>"Max", "dob"=>"1996-22", "email"=>"mzakzook@me.com"}}
+  [1m[35m (0.9ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/patients_controller.rb:4:in `create'
+  [1m[36mPatient Create (14.4ms)[0m  [1m[32mINSERT INTO "patients" ("name", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Max"], ["email", "mzakzook@me.com"], ["created_at", "2020-06-13 20:45:51.554366"], ["updated_at", "2020-06-13 20:45:51.554366"]]
+  ↳ app/controllers/patients_controller.rb:4:in `create'
+  [1m[35m (16.2ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/patients_controller.rb:4:in `create'
+Completed 200 OK in 42ms (Views: 0.5ms | ActiveRecord: 31.4ms | Allocations: 2573)
+
+
+Started POST "/patients" for ::1 at 2020-06-13 13:46:21 -0700
+Processing by PatientsController#create as JSON
+  Parameters: {"patient"=>{"name"=>"Max", "email"=>"mzakzook@me.com"}}
+  [1m[35m (1.8ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/patients_controller.rb:4:in `create'
+  [1m[36mPatient Create (14.7ms)[0m  [1m[32mINSERT INTO "patients" ("name", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Max"], ["email", "mzakzook@me.com"], ["created_at", "2020-06-13 20:46:21.968054"], ["updated_at", "2020-06-13 20:46:21.968054"]]
+  ↳ app/controllers/patients_controller.rb:4:in `create'
+  [1m[35m (8.4ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/patients_controller.rb:4:in `create'
+Completed 200 OK in 33ms (Views: 0.4ms | ActiveRecord: 24.9ms | Allocations: 2489)
+
+
+Started POST "/patients" for ::1 at 2020-06-13 13:47:20 -0700
+Error occurred while parsing request parameters.
+Contents:
+
+
+
+
+  
+ActionDispatch::Http::Parameters::ParseError (767: unexpected token at ''):
+  
+actionpack (6.0.3.1) lib/action_dispatch/http/parameters.rb:114:in `rescue in parse_formatted_parameters'
+actionpack (6.0.3.1) lib/action_dispatch/http/parameters.rb:110:in `parse_formatted_parameters'
+actionpack (6.0.3.1) lib/action_dispatch/http/request.rb:389:in `block in POST'
+rack (2.2.2) lib/rack/request.rb:69:in `fetch'
+rack (2.2.2) lib/rack/request.rb:69:in `fetch_header'
+actionpack (6.0.3.1) lib/action_dispatch/http/request.rb:388:in `POST'
+actionpack (6.0.3.1) lib/action_dispatch/http/parameters.rb:55:in `parameters'
+actionpack (6.0.3.1) lib/action_controller/metal/params_wrapper.rb:278:in `_wrapper_enabled?'
+actionpack (6.0.3.1) lib/action_controller/metal/params_wrapper.rb:244:in `process_action'
+activerecord (6.0.3.1) lib/active_record/railties/controller_runtime.rb:27:in `process_action'
+actionpack (6.0.3.1) lib/abstract_controller/base.rb:136:in `process'
+actionpack (6.0.3.1) lib/action_controller/metal.rb:190:in `dispatch'
+actionpack (6.0.3.1) lib/action_controller/metal.rb:254:in `dispatch'
+actionpack (6.0.3.1) lib/action_dispatch/routing/route_set.rb:50:in `dispatch'
+actionpack (6.0.3.1) lib/action_dispatch/routing/route_set.rb:33:in `serve'
+actionpack (6.0.3.1) lib/action_dispatch/journey/router.rb:49:in `block in serve'
+actionpack (6.0.3.1) lib/action_dispatch/journey/router.rb:32:in `each'
+actionpack (6.0.3.1) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (6.0.3.1) lib/action_dispatch/routing/route_set.rb:834:in `call'
+rack (2.2.2) lib/rack/etag.rb:27:in `call'
+rack (2.2.2) lib/rack/conditional_get.rb:40:in `call'
+rack (2.2.2) lib/rack/head.rb:12:in `call'
+activerecord (6.0.3.1) lib/active_record/migration.rb:567:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (6.0.3.1) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/actionable_exceptions.rb:17:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/debug_exceptions.rb:32:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.3.1) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.0.3.1) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.3.1) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.3.1) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.3.1) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.3.1) lib/rails/rack/logger.rb:26:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.2) lib/rack/runtime.rb:22:in `call'
+activesupport (6.0.3.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.2.2) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/host_authorization.rb:82:in `call'
+railties (6.0.3.1) lib/rails/engine.rb:527:in `call'
+puma (4.3.5) lib/puma/configuration.rb:228:in `call'
+puma (4.3.5) lib/puma/server.rb:713:in `handle_request'
+puma (4.3.5) lib/puma/server.rb:472:in `process_client'
+puma (4.3.5) lib/puma/server.rb:328:in `block in run'
+puma (4.3.5) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Error occurred while parsing request parameters.
+Contents:
+
+
+
+
+Started GET "/patients" for ::1 at 2020-06-13 13:47:54 -0700
+Processing by PatientsController#index as JSON
+  Parameters: {"patient"=>{"name"=>"Max", "dob"=>"1991-06-22", "email"=>"mzakzook@me.com"}}
+  [1m[36mPatient Load (2.5ms)[0m  [1m[34mSELECT "patients".* FROM "patients"[0m
+  ↳ app/controllers/patients_controller.rb:13:in `index'
+Completed 200 OK in 6ms (Views: 3.1ms | ActiveRecord: 2.5ms | Allocations: 1429)
+
+
+Started DELETE "/patients/1" for ::1 at 2020-06-13 13:48:25 -0700
+Error occurred while parsing request parameters.
+Contents:
+
+
+
+  
+ActionDispatch::Http::Parameters::ParseError (767: unexpected token at ''):
+  
+actionpack (6.0.3.1) lib/action_dispatch/http/parameters.rb:114:in `rescue in parse_formatted_parameters'
+actionpack (6.0.3.1) lib/action_dispatch/http/parameters.rb:110:in `parse_formatted_parameters'
+actionpack (6.0.3.1) lib/action_dispatch/http/request.rb:389:in `block in POST'
+rack (2.2.2) lib/rack/request.rb:69:in `fetch'
+rack (2.2.2) lib/rack/request.rb:69:in `fetch_header'
+actionpack (6.0.3.1) lib/action_dispatch/http/request.rb:388:in `POST'
+actionpack (6.0.3.1) lib/action_dispatch/http/parameters.rb:55:in `parameters'
+actionpack (6.0.3.1) lib/action_controller/metal/params_wrapper.rb:278:in `_wrapper_enabled?'
+actionpack (6.0.3.1) lib/action_controller/metal/params_wrapper.rb:244:in `process_action'
+activerecord (6.0.3.1) lib/active_record/railties/controller_runtime.rb:27:in `process_action'
+actionpack (6.0.3.1) lib/abstract_controller/base.rb:136:in `process'
+actionpack (6.0.3.1) lib/action_controller/metal.rb:190:in `dispatch'
+actionpack (6.0.3.1) lib/action_controller/metal.rb:254:in `dispatch'
+actionpack (6.0.3.1) lib/action_dispatch/routing/route_set.rb:50:in `dispatch'
+actionpack (6.0.3.1) lib/action_dispatch/routing/route_set.rb:33:in `serve'
+actionpack (6.0.3.1) lib/action_dispatch/journey/router.rb:49:in `block in serve'
+actionpack (6.0.3.1) lib/action_dispatch/journey/router.rb:32:in `each'
+actionpack (6.0.3.1) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (6.0.3.1) lib/action_dispatch/routing/route_set.rb:834:in `call'
+rack (2.2.2) lib/rack/etag.rb:27:in `call'
+rack (2.2.2) lib/rack/conditional_get.rb:40:in `call'
+rack (2.2.2) lib/rack/head.rb:12:in `call'
+activerecord (6.0.3.1) lib/active_record/migration.rb:567:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (6.0.3.1) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/actionable_exceptions.rb:17:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/debug_exceptions.rb:32:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.3.1) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.0.3.1) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.3.1) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.3.1) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.3.1) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.3.1) lib/rails/rack/logger.rb:26:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.2) lib/rack/runtime.rb:22:in `call'
+activesupport (6.0.3.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.2.2) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/host_authorization.rb:82:in `call'
+railties (6.0.3.1) lib/rails/engine.rb:527:in `call'
+puma (4.3.5) lib/puma/configuration.rb:228:in `call'
+puma (4.3.5) lib/puma/server.rb:713:in `handle_request'
+puma (4.3.5) lib/puma/server.rb:472:in `process_client'
+puma (4.3.5) lib/puma/server.rb:328:in `block in run'
+puma (4.3.5) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Error occurred while parsing request parameters.
+Contents:
+
+
+
+Started DELETE "/patients/1" for ::1 at 2020-06-13 13:49:22 -0700
+Processing by PatientsController#destroy as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mPatient Load (0.4ms)[0m  [1m[34mSELECT "patients".* FROM "patients" WHERE "patients"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/patients_controller.rb:28:in `destroy'
+  [1m[35m (3.9ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/patients_controller.rb:29:in `destroy'
+  [1m[36mPatient Destroy (1.3ms)[0m  [1m[31mDELETE FROM "patients" WHERE "patients"."id" = $1[0m  [["id", 1]]
+  ↳ app/controllers/patients_controller.rb:29:in `destroy'
+  [1m[35m (8.8ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/patients_controller.rb:29:in `destroy'
+Completed 200 OK in 37ms (Views: 0.2ms | ActiveRecord: 14.6ms | Allocations: 4289)
+
+
+Started GET "/patients" for ::1 at 2020-06-13 13:49:29 -0700
+Processing by PatientsController#index as JSON
+  Parameters: {"patient"=>{"name"=>"Max", "dob"=>"1991-06-22", "email"=>"mzakzook@me.com"}}
+  [1m[36mPatient Load (1.3ms)[0m  [1m[34mSELECT "patients".* FROM "patients"[0m
+  ↳ app/controllers/patients_controller.rb:13:in `index'
+Completed 200 OK in 5ms (Views: 3.0ms | ActiveRecord: 1.3ms | Allocations: 1205)
+
+
+Started PATCH "/patients/2" for ::1 at 2020-06-13 13:54:34 -0700
+Processing by PatientsController#update as JSON
+  Parameters: {"patient"=>{"name"=>"John"}, "id"=>"2"}
+  [1m[36mPatient Load (0.6ms)[0m  [1m[34mSELECT "patients".* FROM "patients" WHERE "patients"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/patients_controller.rb:22:in `update'
+  [1m[35m (0.7ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/patients_controller.rb:23:in `update'
+  [1m[36mPatient Update (0.8ms)[0m  [1m[33mUPDATE "patients" SET "name" = $1, "updated_at" = $2 WHERE "patients"."id" = $3[0m  [["name", "John"], ["updated_at", "2020-06-13 20:54:34.334640"], ["id", 2]]
+  ↳ app/controllers/patients_controller.rb:23:in `update'
+  [1m[35m (6.8ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/patients_controller.rb:23:in `update'
+Completed 200 OK in 21ms (Views: 0.8ms | ActiveRecord: 9.3ms | Allocations: 3222)
+
+
+Started GET "/patients" for ::1 at 2020-06-13 13:54:42 -0700
+Processing by PatientsController#index as JSON
+  Parameters: {"patient"=>{"name"=>"Max", "dob"=>"1991-06-22", "email"=>"mzakzook@me.com"}}
+  [1m[36mPatient Load (1.2ms)[0m  [1m[34mSELECT "patients".* FROM "patients"[0m
+  ↳ app/controllers/patients_controller.rb:13:in `index'
+Completed 200 OK in 3ms (Views: 1.9ms | ActiveRecord: 1.2ms | Allocations: 1217)
+
+
+Started POST "/patients" for ::1 at 2020-06-13 15:12:47 -0700
+  [1m[35m (7.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by PatientsController#create as JSON
+  Parameters: {"patient"=>{"name"=>"Max", "email"=>"mzakzook@me.com"}}
+Completed 200 OK in 71ms (Views: 0.3ms | ActiveRecord: 26.8ms | Allocations: 8095)
+
+
+Started POST "/patients" for ::1 at 2020-06-13 15:13:08 -0700
+Processing by PatientsController#create as JSON
+  Parameters: {"patient"=>{"name"=>"Max", "dob"=>"hi", "email"=>"mzakzook@me.com"}}
+Completed 200 OK in 12ms (Views: 0.5ms | ActiveRecord: 0.0ms | Allocations: 695)
+
+
+Started POST "/patients" for ::1 at 2020-06-13 15:13:17 -0700
+Processing by PatientsController#create as JSON
+  Parameters: {"patient"=>{"name"=>"Max", "dob"=>"06/22/1991", "email"=>"mzakzook@me.com"}}
+Completed 200 OK in 3ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 688)
+
+
+Started POST "/patients" for ::1 at 2020-06-13 15:13:27 -0700
+Processing by PatientsController#create as JSON
+  Parameters: {"patient"=>{"name"=>"Max", "dob"=>"1991-06-22", "email"=>"mzakzook@me.com"}}
+  [1m[35m (34.5ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/patients_controller.rb:4:in `create'
+  [1m[36mPatient Create (15.2ms)[0m  [1m[32mINSERT INTO "patients" ("name", "dob", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "Max"], ["dob", "1991-06-22"], ["email", "mzakzook@me.com"], ["created_at", "2020-06-13 22:13:27.341363"], ["updated_at", "2020-06-13 22:13:27.341363"]]
+  ↳ app/controllers/patients_controller.rb:4:in `create'
+  [1m[35m (54.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/patients_controller.rb:4:in `create'
+Completed 200 OK in 130ms (Views: 3.5ms | ActiveRecord: 104.2ms | Allocations: 2671)
+
+
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mPatient Create (7.7ms)[0m  [1m[32mINSERT INTO "patients" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "Max"], ["created_at", "2020-06-13 22:37:39.727082"], ["updated_at", "2020-06-13 22:37:39.727082"]]
+  [1m[35m (12.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mPatient Create (0.4ms)[0m  [1m[32mINSERT INTO "patients" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "Max"], ["created_at", "2020-06-13 22:50:01.968865"], ["updated_at", "2020-06-13 22:50:01.968865"]]
+  [1m[35m (6.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (1.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mPatient Create (1.2ms)[0m  [1m[32mINSERT INTO "patients" ("email", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["email", "mzakzook@me.com"], ["created_at", "2020-06-13 22:51:01.057275"], ["updated_at", "2020-06-13 22:51:01.057275"]]
+  [1m[35m (6.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mPatient Load (0.6ms)[0m  [1m[34mSELECT "patients".* FROM "patients" LIMIT $1[0m  [["LIMIT", 11]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mPatient Create (0.9ms)[0m  [1m[32mINSERT INTO "patients" ("name", "dob", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "Max"], ["dob", "1991-06-22"], ["email", "mzakzook@me.com"], ["created_at", "2020-06-13 22:52:24.342101"], ["updated_at", "2020-06-13 22:52:24.342101"]]
+  [1m[35m (13.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mPatient Exists? (1.0ms)[0m  [1m[34mSELECT 1 AS one FROM "patients" WHERE "patients"."email" = $1 LIMIT $2[0m  [["email", "mzakzook@me.com"], ["LIMIT", 1]]
+  [1m[35m (11.5ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mPatient Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "patients" WHERE "patients"."email" = $1 LIMIT $2[0m  [["email", "mzakzook@me.com"], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mPatient Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "patients" WHERE "patients"."email" = $1 LIMIT $2[0m  [["email", "mzakzook@me.com"], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mPatient Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "patients" WHERE "patients"."email" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (1.6ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mPatient Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "patients" WHERE "patients"."email" = $1 LIMIT $2[0m  [["email", "mzakzook@me.com"], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mPatient Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "patients" WHERE "patients"."email" = $1 LIMIT $2[0m  [["email", "mzakzok@me.com"], ["LIMIT", 1]]
+  [1m[35m (0.5ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mPatient Exists? (1.2ms)[0m  [1m[34mSELECT 1 AS one FROM "patients" WHERE "patients"."email" = $1 LIMIT $2[0m  [["email", "mzakzok@me.com"], ["LIMIT", 1]]
+  [1m[36mPatient Create (0.8ms)[0m  [1m[32mINSERT INTO "patients" ("name", "dob", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "Max"], ["dob", "1991-06-22"], ["email", "mzakzok@me.com"], ["created_at", "2020-06-13 23:03:53.059917"], ["updated_at", "2020-06-13 23:03:53.059917"]]
+  [1m[35m (12.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mPatient Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "patients" WHERE "patients"."email" = $1 LIMIT $2[0m  [["email", "megan.carey42@gmail.com"], ["LIMIT", 1]]
+  [1m[36mPatient Create (0.5ms)[0m  [1m[32mINSERT INTO "patients" ("name", "dob", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "Megan"], ["dob", "1996-03-22"], ["email", "megan.carey42@gmail.com"], ["created_at", "2020-06-13 23:05:57.516662"], ["updated_at", "2020-06-13 23:05:57.516662"]]
+  [1m[35m (6.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mPatient Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "patients" WHERE "patients"."email" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (0.5ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mPatient Destroy (2.0ms)[0m  [1m[31mDELETE FROM "patients"[0m
+  [1m[36mPatient Load (0.3ms)[0m  [1m[34mSELECT "patients".* FROM "patients" LIMIT $1[0m  [["LIMIT", 11]]
+  [1m[36mPatient Load (0.4ms)[0m  [1m[34mSELECT "patients".* FROM "patients" ORDER BY "patients"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mPatient Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "patients" WHERE "patients"."email" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (11.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mPatient Load (0.6ms)[0m  [1m[34mSELECT "patients".* FROM "patients" ORDER BY "patients"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mPatient Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "patients" WHERE "patients"."email" = $1 LIMIT $2[0m  [["email", "megan.carey42@gmail.com"], ["LIMIT", 1]]
+  [1m[36mPatient Create (1.0ms)[0m  [1m[32mINSERT INTO "patients" ("name", "dob", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "Megan"], ["dob", "1996-03-22"], ["email", "megan.carey42@gmail.com"], ["created_at", "2020-06-14 00:14:40.012866"], ["updated_at", "2020-06-14 00:14:40.012866"]]
+  [1m[35m (2.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mPatient Load (0.5ms)[0m  [1m[34mSELECT "patients".* FROM "patients" ORDER BY "patients"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mPatient Load (0.4ms)[0m  [1m[34mSELECT "patients".* FROM "patients" ORDER BY "patients"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mPatient Load (0.4ms)[0m  [1m[34mSELECT "patients".* FROM "patients" ORDER BY "patients"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mPatient Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM "patients" WHERE "patients"."email" = $1 AND "patients"."id" != $2 LIMIT $3[0m  [["email", "megan.carey42@gmail.com"], ["id", 12], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mPatient Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "patients" WHERE "patients"."email" = $1 AND "patients"."id" != $2 LIMIT $3[0m  [["email", "hello"], ["id", 12], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mPatient Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "patients" WHERE "patients"."email" = $1 AND "patients"."id" != $2 LIMIT $3[0m  [["email", "hello"], ["id", 12], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mPatient Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "patients" WHERE "patients"."email" = $1 AND "patients"."id" != $2 LIMIT $3[0m  [["email", "hello"], ["id", 12], ["LIMIT", 1]]
+  [1m[36mPatient Update (1.0ms)[0m  [1m[33mUPDATE "patients" SET "email" = $1, "updated_at" = $2 WHERE "patients"."id" = $3[0m  [["email", "hello"], ["updated_at", "2020-06-14 00:17:11.620192"], ["id", 12]]
+  [1m[35m (6.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mPatient Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "patients" WHERE "patients"."email" = $1 AND "patients"."id" != $2 LIMIT $3[0m  [["email", "hello"], ["id", 12], ["LIMIT", 1]]
+  [1m[36mPatient Load (0.6ms)[0m  [1m[34mSELECT "patients".* FROM "patients" LIMIT $1[0m  [["LIMIT", 11]]
+  [1m[36mPatient Load (0.5ms)[0m  [1m[34mSELECT "patients".* FROM "patients" ORDER BY "patients"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mPatient Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "patients" WHERE "patients"."email" = $1 AND "patients"."id" != $2 LIMIT $3[0m  [["email", "hello"], ["id", 12], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mPatient Load (0.3ms)[0m  [1m[34mSELECT "patients".* FROM "patients" LIMIT $1[0m  [["LIMIT", 11]]
+  [1m[36mPatient Load (0.4ms)[0m  [1m[34mSELECT "patients".* FROM "patients" ORDER BY "patients"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mPatient Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "patients" WHERE "patients"."email" = $1 AND "patients"."id" != $2 LIMIT $3[0m  [["email", "hello"], ["id", 12], ["LIMIT", 1]]
+  [1m[36mPatient Destroy (1.9ms)[0m  [1m[31mDELETE FROM "patients"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mPatient Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "patients" WHERE "patients"."email" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mPatient Load (0.5ms)[0m  [1m[34mSELECT "patients".* FROM "patients" LIMIT $1[0m  [["LIMIT", 11]]
+Started POST "/patients" for ::1 at 2020-06-13 17:28:31 -0700
+  [1m[35m (8.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by PatientsController#create as JSON
+  Parameters: {"patient"=>{"name"=>"Max", "dob"=>"1991-06-22", "email"=>"mzakzook@me.com"}}
+  [1m[35m (1.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/patients_controller.rb:4:in `create'
+  [1m[36mPatient Exists? (5.3ms)[0m  [1m[34mSELECT 1 AS one FROM "patients" WHERE "patients"."email" = $1 LIMIT $2[0m  [["email", "mzakzook@me.com"], ["LIMIT", 1]]
+  ↳ app/controllers/patients_controller.rb:4:in `create'
+  [1m[36mPatient Create (32.3ms)[0m  [1m[32mINSERT INTO "patients" ("name", "dob", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "Max"], ["dob", "1991-06-22"], ["email", "mzakzook@me.com"], ["created_at", "2020-06-14 00:28:31.462670"], ["updated_at", "2020-06-14 00:28:31.462670"]]
+  ↳ app/controllers/patients_controller.rb:4:in `create'
+  [1m[35m (6.0ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/patients_controller.rb:4:in `create'
+Completed 200 OK in 184ms (Views: 3.4ms | ActiveRecord: 93.3ms | Allocations: 8711)
+
+
+Started GET "/patients" for ::1 at 2020-06-13 17:28:47 -0700
+Processing by PatientsController#index as JSON
+  Parameters: {"patient"=>{"name"=>"Max", "dob"=>"1991-06-22", "email"=>"mzakzook@me.com"}}
+  [1m[36mPatient Load (47.5ms)[0m  [1m[34mSELECT "patients".* FROM "patients"[0m
+  ↳ app/controllers/patients_controller.rb:13:in `index'
+Completed 200 OK in 51ms (Views: 3.5ms | ActiveRecord: 47.5ms | Allocations: 1026)
+
+
+Started POST "/patients" for ::1 at 2020-06-13 17:28:57 -0700
+Processing by PatientsController#create as JSON
+  Parameters: {"patient"=>{"name"=>"Max", "dob"=>"1991-06-22", "email"=>"mzakzook@me.com"}}
+  [1m[35m (2.0ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/patients_controller.rb:4:in `create'
+  [1m[36mPatient Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "patients" WHERE "patients"."email" = $1 LIMIT $2[0m  [["email", "mzakzook@me.com"], ["LIMIT", 1]]
+  ↳ app/controllers/patients_controller.rb:4:in `create'
+  [1m[35m (7.2ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/patients_controller.rb:4:in `create'
+Completed 200 OK in 25ms (Views: 0.2ms | ActiveRecord: 9.6ms | Allocations: 4274)
+
+
+Started PATCH "/patients/13" for ::1 at 2020-06-13 17:29:34 -0700
+Processing by PatientsController#update as JSON
+  Parameters: {"patient"=>{"name"=>"John"}, "id"=>"13"}
+  [1m[36mPatient Load (5.7ms)[0m  [1m[34mSELECT "patients".* FROM "patients" WHERE "patients"."id" = $1 LIMIT $2[0m  [["id", 13], ["LIMIT", 1]]
+  ↳ app/controllers/patients_controller.rb:22:in `update'
+  [1m[35m (0.6ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/patients_controller.rb:23:in `update'
+  [1m[36mPatient Exists? (1.7ms)[0m  [1m[34mSELECT 1 AS one FROM "patients" WHERE "patients"."email" = $1 AND "patients"."id" != $2 LIMIT $3[0m  [["email", "mzakzook@me.com"], ["id", 13], ["LIMIT", 1]]
+  ↳ app/controllers/patients_controller.rb:23:in `update'
+  [1m[36mPatient Update (0.7ms)[0m  [1m[33mUPDATE "patients" SET "name" = $1, "updated_at" = $2 WHERE "patients"."id" = $3[0m  [["name", "John"], ["updated_at", "2020-06-14 00:29:34.709559"], ["id", 13]]
+  ↳ app/controllers/patients_controller.rb:23:in `update'
+  [1m[35m (1.8ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/patients_controller.rb:23:in `update'
+  [1m[36mPatient Exists? (1.9ms)[0m  [1m[34mSELECT 1 AS one FROM "patients" WHERE "patients"."email" = $1 AND "patients"."id" != $2 LIMIT $3[0m  [["email", "mzakzook@me.com"], ["id", 13], ["LIMIT", 1]]
+  ↳ app/controllers/patients_controller.rb:24:in `update'
+Completed 200 OK in 75ms (Views: 0.5ms | ActiveRecord: 58.7ms | Allocations: 5464)
+
+
+Started PATCH "/patients/13" for ::1 at 2020-06-13 17:29:54 -0700
+Processing by PatientsController#update as JSON
+  Parameters: {"patient"=>{"name"=>"John", "dob"=>""}, "id"=>"13"}
+  [1m[36mPatient Load (7.1ms)[0m  [1m[34mSELECT "patients".* FROM "patients" WHERE "patients"."id" = $1 LIMIT $2[0m  [["id", 13], ["LIMIT", 1]]
+  ↳ app/controllers/patients_controller.rb:22:in `update'
+  [1m[35m (2.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/patients_controller.rb:23:in `update'
+  [1m[36mPatient Exists? (13.4ms)[0m  [1m[34mSELECT 1 AS one FROM "patients" WHERE "patients"."email" = $1 AND "patients"."id" != $2 LIMIT $3[0m  [["email", "mzakzook@me.com"], ["id", 13], ["LIMIT", 1]]
+  ↳ app/controllers/patients_controller.rb:23:in `update'
+  [1m[35m (1.6ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/patients_controller.rb:23:in `update'
+  [1m[36mPatient Exists? (4.6ms)[0m  [1m[34mSELECT 1 AS one FROM "patients" WHERE "patients"."email" = $1 AND "patients"."id" != $2 LIMIT $3[0m  [["email", "mzakzook@me.com"], ["id", 13], ["LIMIT", 1]]
+  ↳ app/controllers/patients_controller.rb:24:in `update'
+Completed 200 OK in 42ms (Views: 0.2ms | ActiveRecord: 29.0ms | Allocations: 5089)
+
+
