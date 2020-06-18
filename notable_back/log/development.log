@@ -3407,3 +3407,60 @@ ActionController::ParameterMissing (param is missing or the value is empty: pati
   
 app/controllers/patients_controller.rb:40:in `patient_params'
 app/controllers/patients_controller.rb:23:in `update'
+Started GET "/patients" for ::1 at 2020-06-14 18:10:32 -0700
+  [1m[35m (1.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by PatientsController#index as */*
+  [1m[36mPatient Load (6.3ms)[0m  [1m[34mSELECT "patients".* FROM "patients"[0m
+  ↳ app/controllers/patients_controller.rb:13:in `index'
+Completed 200 OK in 35ms (Views: 9.9ms | ActiveRecord: 20.3ms | Allocations: 6200)
+
+
+Started GET "/patients" for ::1 at 2020-06-14 18:10:43 -0700
+Processing by PatientsController#index as */*
+  [1m[36mPatient Load (24.1ms)[0m  [1m[34mSELECT "patients".* FROM "patients"[0m
+  ↳ app/controllers/patients_controller.rb:13:in `index'
+Completed 200 OK in 28ms (Views: 3.3ms | ActiveRecord: 24.1ms | Allocations: 1256)
+
+
+Started GET "/patients" for ::1 at 2020-06-14 18:10:44 -0700
+Processing by PatientsController#index as */*
+  [1m[36mPatient Load (33.8ms)[0m  [1m[34mSELECT "patients".* FROM "patients"[0m
+  ↳ app/controllers/patients_controller.rb:13:in `index'
+Completed 200 OK in 36ms (Views: 2.4ms | ActiveRecord: 33.8ms | Allocations: 1256)
+
+
+Started GET "/patients" for ::1 at 2020-06-14 18:10:45 -0700
+Processing by PatientsController#index as */*
+  [1m[36mPatient Load (1.0ms)[0m  [1m[34mSELECT "patients".* FROM "patients"[0m
+  ↳ app/controllers/patients_controller.rb:13:in `index'
+Completed 200 OK in 5ms (Views: 3.8ms | ActiveRecord: 1.0ms | Allocations: 1256)
+
+
+Started GET "/patients" for ::1 at 2020-06-14 18:10:46 -0700
+Processing by PatientsController#index as */*
+  [1m[36mPatient Load (4.1ms)[0m  [1m[34mSELECT "patients".* FROM "patients"[0m
+  ↳ app/controllers/patients_controller.rb:13:in `index'
+Completed 200 OK in 9ms (Views: 4.1ms | ActiveRecord: 4.1ms | Allocations: 1256)
+
+
+Started GET "/patients" for ::1 at 2020-06-14 18:10:47 -0700
+Processing by PatientsController#index as */*
+  [1m[36mPatient Load (9.3ms)[0m  [1m[34mSELECT "patients".* FROM "patients"[0m
+  ↳ app/controllers/patients_controller.rb:13:in `index'
+Completed 200 OK in 13ms (Views: 3.3ms | ActiveRecord: 9.3ms | Allocations: 1238)
+
+
+Started GET "/patients" for ::1 at 2020-06-14 18:10:48 -0700
+Processing by PatientsController#index as */*
+  [1m[36mPatient Load (29.9ms)[0m  [1m[34mSELECT "patients".* FROM "patients"[0m
+  ↳ app/controllers/patients_controller.rb:13:in `index'
+Completed 200 OK in 36ms (Views: 5.3ms | ActiveRecord: 29.9ms | Allocations: 1238)
+
+
+Started GET "/patients" for ::1 at 2020-06-14 18:11:01 -0700
+Processing by PatientsController#index as */*
+  [1m[36mPatient Load (0.5ms)[0m  [1m[34mSELECT "patients".* FROM "patients"[0m
+  ↳ app/controllers/patients_controller.rb:13:in `index'
+Completed 200 OK in 3ms (Views: 2.4ms | ActiveRecord: 0.5ms | Allocations: 1238)
+
+
